@@ -37,4 +37,4 @@ build/
 
 #### mvn ####
 mvn*
-mvn/
+.mvn/
