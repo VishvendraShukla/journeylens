@@ -26,4 +26,21 @@ public class EventMapperUtil {
     return eventBuilder;
   }
 
+  public EventRequestDto mapAndReturnDTO(Event event) {
+    EventRequestDto eventRequestDto = new EventRequestDto();
+    eventRequestDto.setName(event.getName());
+    eventRequestDto.setDescription(event.getDescription());
+    eventRequestDto.setEventType(event.getEventType().name());
+    eventRequestDto.setUserId(event.getUserId());
+    eventRequestDto.setPageUrl(event.getPageUrl());
+    eventRequestDto.setDeviceInfo(event.getDeviceInfo());
+    eventRequestDto.setReferrerUrl(event.getReferrerUrl());
+    eventRequestDto.setMetadata(event.getMetadata());
+    eventRequestDto.setDuration(event.getDuration());
+    eventRequestDto.setUserAgent(event.getUserAgent());
+    eventRequestDto.setIpAddress(event.getIpAddress());
+    eventRequestDto.setGeoLocation(event.getGeoLocation());
+    return eventRequestDto;
+  }
+
 }

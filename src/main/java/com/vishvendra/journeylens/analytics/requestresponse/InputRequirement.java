@@ -20,5 +20,6 @@ public class InputRequirement {
   private String dataType;
   private String description;
   private String value;
+  private String[] options;
 
 }

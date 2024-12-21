@@ -6,6 +6,7 @@ public class InputRequirementVOBuilder {
   private String displayValue;
   private String dataType;
   private String description;
+  private String[] options;
 
   private InputRequirementVOBuilder() {
 
@@ -23,6 +24,12 @@ public class InputRequirementVOBuilder {
 
   public InputRequirementVOBuilder displayValue(String displayValue) {
     this.displayValue = displayValue;
+    return this;
+  }
+
+  public InputRequirementVOBuilder eventList() {
+    this.dataType = "Select";
+    this.options = new String[]{"ALL", "CLICK", "VIEW", "PURCHASE", "LOGIN", "LOGOUT", "ERROR"};
     return this;
   }
 
@@ -51,6 +58,7 @@ public class InputRequirementVOBuilder {
         .key(this.key)
         .displayValue(this.displayValue)
         .dataType(this.dataType)
+        .options(this.options)
         .description(this.description)
         .build();
   }
