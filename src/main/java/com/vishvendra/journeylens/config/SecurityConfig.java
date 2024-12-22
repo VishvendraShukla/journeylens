@@ -1,8 +1,8 @@
 package com.vishvendra.journeylens.config;
 
 import com.vishvendra.journeylens.filter.ApiKeyAuthenticationFilter;
+import com.vishvendra.journeylens.filter.LoggingFilter;
 import com.vishvendra.journeylens.service.user.CustomUserDetailsService;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -39,6 +40,7 @@ public class SecurityConfig {
   };
   private final CustomUserDetailsService userDetailsService;
   private final ApiKeyAuthenticationFilter apiKeyAuthenticationFilter;
+  private final LoggingFilter loggingFilter;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,6 +53,7 @@ public class SecurityConfig {
             .hasRole("USER")
             .anyRequest().authenticated()
         )
+        .addFilterBefore(loggingFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterAfter(apiKeyAuthenticationFilter, BasicAuthenticationFilter.class)
         .authenticationProvider(authenticationProvider())
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
